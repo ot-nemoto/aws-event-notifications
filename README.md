@@ -2,8 +2,22 @@
 
 `aws.health` イベントを監視し、Slack に通知する
 
-## deploy
+## デプロイの準備
+
+-   AWS CDK のリソースをプロビジョニングする
+
+    ```sh
+    cdk bootstrap
+    ```
+
+-   [AWS Chatbot](https://us-east-2.console.aws.amazon.com/chatbot/home?region=us-east-2#/home)で、クライアントの設定
+    -   設定したクライアントから SLACK_WORKSPACE_ID を取得
+-   通知先の Slack のチャンネルから SLACK_CHANNEL_ID を取得
+
+## デプロイ
 
 ```sh
-cdk deploy -c slackWorkspaceId=SLACK_WORKSPACE_ID -c slackChannelId=SLACK_CHANNEL_ID
+cdk deploy \
+    -c slack_workspace_id=SLACK_WORKSPACE_ID \
+    -c slack_workspace_id=SLACK_CHANNEL_ID
 ```

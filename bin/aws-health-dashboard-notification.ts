@@ -16,8 +16,8 @@ new AwsHealthDashboardNotificationStack(app, 'AwsHealthDashboardNotificationStac
     /* Uncomment the next line if you know exactly what Account and Region you
      * want to deploy the stack to. */
     // env: { account: '123456789012', region: 'us-east-1' },
-    slackWorkspaceId: app.node.tryGetContext('slackWorkspaceId'),
-    slackChannelId: app.node.tryGetContext('slackChannelId'),
+    slackWorkspaceId: app.node.tryGetContext('slack_workspace_id') ?? '',
+    slackChannelId: app.node.tryGetContext('slack_channel_id') ?? '',
 
     /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
