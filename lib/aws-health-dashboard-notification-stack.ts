@@ -36,12 +36,13 @@ export class AwsHealthDashboardNotificationStack extends cdk.Stack {
         );
 
         // Amazon EventBridge
-        const rule = new events.Rule(this, 'EventsRule', {
-            ruleName: 'aws-health-dashboard',
+        new events.Rule(this, 'AwsHealthEventsRule', {
+            ruleName: 'aws-health-notification',
+            description: 'aws.health rules created by aws-event-notifications.',
             eventPattern: {
                 source: ['aws.health'],
             },
+            targets: [new cdk.aws_events_targets.SnsTopic(topic)],
         });
-        rule.addTarget(new cdk.aws_events_targets.SnsTopic(topic));
     }
 }

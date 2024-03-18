@@ -1,6 +1,8 @@
-# aws-health-dashboard-notification
+# aws-event-notifications
 
-`aws.health` イベントを監視し、Slack に通知する
+-   Amazon EventBridge を監視し、Slack に通知するインフラを構築する
+-   監視するイベント
+    -   `aws.health`
 
 ## デプロイの準備
 
