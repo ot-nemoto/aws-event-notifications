@@ -5,23 +5,23 @@ import * as chatbot from 'aws-cdk-lib/aws-chatbot';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as events from 'aws-cdk-lib/aws-events';
 
-export interface AwsHealthDashboardNotificationStackProps extends cdk.StackProps {
+export interface AwsEventNotigicationsStackProps extends cdk.StackProps {
     slackWorkspaceId: string;
     slackChannelId: string;
 }
 
-export class AwsHealthDashboardNotificationStack extends cdk.Stack {
-    constructor(scope: Construct, id: string, props: AwsHealthDashboardNotificationStackProps) {
+export class AwsEventNotigicationsStack extends cdk.Stack {
+    constructor(scope: Construct, id: string, props: AwsEventNotigicationsStackProps) {
         super(scope, id, props);
 
         // Amazon SNS
         const topic = new sns.Topic(this, 'SnsTopic', {
-            topicName: 'aws-health-dashboard',
+            topicName: 'aws-event-notifications',
         });
 
         // AWS Chatbot
         const slack = new chatbot.SlackChannelConfiguration(this, 'ChatbotSlackChannelConfiguration', {
-            slackChannelConfigurationName: 'aws-health-dashboard',
+            slackChannelConfigurationName: 'aws-event-notifications',
             slackWorkspaceId: props.slackWorkspaceId,
             slackChannelId: props.slackChannelId,
             guardrailPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('ReadOnlyAccess')],
@@ -41,6 +41,14 @@ export class AwsHealthDashboardNotificationStack extends cdk.Stack {
             description: 'aws.health rules created by aws-event-notifications.',
             eventPattern: {
                 source: ['aws.health'],
+            },
+            targets: [new cdk.aws_events_targets.SnsTopic(topic)],
+        });
+        new events.Rule(this, 'AwsSavingsplansEventsRule', {
+            ruleName: 'aws-savingsplans-notification',
+            description: 'aws.savingsplans rules created by aws-event-notifications.',
+            eventPattern: {
+                source: ['aws.savingsplans'],
             },
             targets: [new cdk.aws_events_targets.SnsTopic(topic)],
         });
