@@ -6,7 +6,9 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import * as events from 'aws-cdk-lib/aws-events';
 
 export interface AwsEventNotigicationsStackProps extends cdk.StackProps {
+    // ワークスペースID
     slackWorkspaceId: string;
+    // チャンネルID
     slackChannelId: string;
 }
 
