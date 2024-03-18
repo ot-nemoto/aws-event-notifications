@@ -19,5 +19,5 @@
 ```sh
 cdk deploy \
     -c slack_workspace_id=SLACK_WORKSPACE_ID \
-    -c slack_workspace_id=SLACK_CHANNEL_ID
+    -c slack_channel_id=SLACK_CHANNEL_ID
 ```
