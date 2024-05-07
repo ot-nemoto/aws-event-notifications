@@ -28,6 +28,8 @@ export class AwsEventNotigicationsStack extends cdk.Stack {
             slackChannelId: props.slackChannelId,
             guardrailPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('ReadOnlyAccess')],
             notificationTopics: [topic],
+            logRetention: cdk.aws_logs.RetentionDays.INFINITE,
+            loggingLevel: chatbot.LoggingLevel.INFO,
         });
         slack.addToRolePolicy(
             new iam.PolicyStatement({
