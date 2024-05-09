@@ -3,5 +3,8 @@
     "editor.formatOnSave": true,
     "prettier.singleQuote": true,
     "prettier.tabWidth": 4,
-    "prettier.printWidth": 120
+    "prettier.printWidth": 120,
+    "[markdown]": {
+        "prettier.tabWidth": 2
+    }
 }

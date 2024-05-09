@@ -1,32 +1,46 @@
 # aws-event-notifications
 
--   Amazon EventBridge を監視し、Slack に通知するインフラを構築する
--   監視するイベント
-    -   `aws.health`
-    -   `aws.savingsplans`
+- Amazon EventBridge を監視し、Slack に通知するインフラを構築する
+- 監視するイベント
+  - `aws.health`
+  - `aws.savingsplans`
 
 ## デプロイの準備
 
--   AWS CDK のリソースをプロビジョニングする
+- AWS CDK のリソースをプロビジョニングする
 
-    ```sh
-    cdk bootstrap
-    ```
+  ```sh
+  cdk bootstrap
+  ```
 
--   [AWS Chatbot](https://us-east-2.console.aws.amazon.com/chatbot/home?region=us-east-2#/home)で、クライアントの設定
-    -   設定したクライアントから SLACK_WORKSPACE_ID を取得
--   通知先の Slack のチャンネルから SLACK_CHANNEL_ID を取得
+- [AWS Chatbot](https://us-east-2.console.aws.amazon.com/chatbot/home?region=us-east-2#/home)で、クライアントの設定
+  - 設定したクライアントから SLACK_WORKSPACE_ID を取得
+- 通知先の Slack のチャンネルから SLACK_CHANNEL_ID を取得
 
 ## インフラをデプロイ
 
 ```sh
-cdk deploy \
+npx cdk deploy \
     -c slack_workspace_id=SLACK_WORKSPACE_ID \
     -c slack_channel_id=SLACK_CHANNEL_ID
 ```
 
-## インフラを削除
+## その他
+
+### インフラを削除
 
 ```sh
-cdk destroy
+npx cdk destroy
+```
+
+### 合成されたテンプレートを出力
+
+```sh
+npx cdk synth
+```
+
+### テスト実行
+
+```sh
+tsc && npm test
 ```
