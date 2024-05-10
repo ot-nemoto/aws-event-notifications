@@ -39,6 +39,14 @@ npx cdk destroy
 npx cdk synth
 ```
 
+### 差分確認
+
+```sh
+npx cdk diff \
+    -c slack_workspace_id=SLACK_WORKSPACE_ID \
+    -c slack_channel_id=SLACK_CHANNEL_ID
+```
+
 ### テスト実行
 
 ```sh

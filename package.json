@@ -1,6 +1,6 @@
 {
     "name": "aws-event-notifications",
-    "version": "0.1.0",
+    "version": "0.9.0",
     "bin": {
         "aws-event-notifications": "bin/aws-event-notifications.js"
     },

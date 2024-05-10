@@ -79,5 +79,10 @@ export class AwsEventNotigicationsStack extends cdk.Stack {
             },
             targets: [new cdk.aws_events_targets.SnsTopic(topic)],
         });
+
+        // Outputs
+        new cdk.CfnOutput(this, 'version', {
+            value: process.env.npm_package_version || '0.1.0',
+        });
     }
 }
