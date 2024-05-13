@@ -5,12 +5,12 @@ import * as chatbot from 'aws-cdk-lib/aws-chatbot';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as events from 'aws-cdk-lib/aws-events';
 import { NagSuppressions } from 'cdk-nag';
-import { ChatbotNotice } from './resource/chatbot-topic';
+import { ChatbotNotice } from './resource/chatbot-notice';
 
 export interface AwsEventNotigicationsStackProps extends cdk.StackProps {
-    // ワークスペースID
+    // Slack Workspace ID
     slackWorkspaceId: string;
-    // チャンネルID
+    // Slack Channel ID
     slackChannelId: string;
 }
 
