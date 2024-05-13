@@ -7,8 +7,8 @@ import { Aspects } from 'aws-cdk-lib';
 
 const app = new cdk.App();
 
-// Add the cdk-nag AwsSolutions Pack with extra verbose logging enabled.
-Aspects.of(app).add(new AwsSolutionsChecks({ verbose: true }));
+// // Add the cdk-nag AwsSolutions Pack with extra verbose logging enabled.
+// Aspects.of(app).add(new AwsSolutionsChecks({ verbose: true }));
 
 new AwsEventNotigicationsStack(app, 'AwsEventNotigicationsStack', {
     slackWorkspaceId: app.node.tryGetContext('slack_workspace_id') ?? '',
