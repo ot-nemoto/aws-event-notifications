@@ -25,12 +25,40 @@ export class ChatbotNotice extends Construct {
             topicName: 'aws-event-chatbot-notice',
             enforceSSL: true, // AwsSolutions-SNS3
         });
-        // NagSuppressions.addResourceSuppressions(this.topic, [
-        //     {
-        //         id: 'AwsSolutions-SNS2',
-        //         reason: 'Encryption is not needed for topics which is used for triggering state machine.',
-        //     },
-        // ]);
+        NagSuppressions.addResourceSuppressions(this.topic, [
+            {
+                id: 'AwsSolutions-SNS2',
+                reason: 'Encryption is not needed for topics which is used for triggering state machine.',
+            },
+        ]);
+
+        // AWS IAM
+        // Default roles are created in the constructor of SlackChannelConfiguration, but roles are created separately to support cdk-nag.
+        const channelRole = new iam.Role(this, 'ChannelRole', {
+            assumedBy: new iam.ServicePrincipal('chatbot.amazonaws.com'),
+        });
+        const channelPolicy = new iam.ManagedPolicy(this, 'ChannelPolicy', {
+            statements: [
+                new iam.PolicyStatement({
+                    resources: ['*'],
+                    actions: ['cloudwatch:Describe*', 'cloudwatch:Get*', 'cloudwatch:List*'],
+                    effect: iam.Effect.ALLOW,
+                }),
+            ],
+        });
+        channelRole.addManagedPolicy(channelPolicy);
+        NagSuppressions.addResourceSuppressions(channelPolicy, [
+            {
+                id: 'AwsSolutions-IAM5',
+                reason: 'Uncontrollable due to CDK-generated custom resource.',
+                appliesTo: [
+                    'Action::cloudwatch:Describe*',
+                    'Action::cloudwatch:Get*',
+                    'Action::cloudwatch:List*',
+                    'Resource::*',
+                ],
+            },
+        ]);
 
         // AWS Chatbot
         this.channelConfiguration = new chatbot.SlackChannelConfiguration(this, 'ChatbotSlackChannelConfiguration', {
@@ -39,30 +67,8 @@ export class ChatbotNotice extends Construct {
             slackChannelId: props.slackChannelId,
             guardrailPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('ReadOnlyAccess')],
             notificationTopics: [this.topic],
-            logRetention: cdk.aws_logs.RetentionDays.INFINITE,
             loggingLevel: chatbot.LoggingLevel.INFO,
+            role: channelRole,
         });
-        this.channelConfiguration.addToRolePolicy(
-            new iam.PolicyStatement({
-                resources: ['*'],
-                actions: ['cloudwatch:Describe*', 'cloudwatch:Get*', 'cloudwatch:List*'],
-                effect: iam.Effect.ALLOW,
-            })
-        );
-        // NagSuppressions.addResourceSuppressionsByPath(
-        //     this,
-        //     `/${this.stackName}/ChatbotSlackChannelConfiguration/ConfigurationRole/DefaultPolicy/Resource`,
-        //     [{ id: 'AwsSolutions-IAM5', reason: 'Necessary to grant Get access to all objects in the cloudwatch.' }]
-        // );
-        // NagSuppressions.addResourceSuppressionsByPath(
-        //     this,
-        //     `/${this.stackName}/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource`,
-        //     [{ id: 'AwsSolutions-IAM4', reason: 'Uncontrollable due to CDK-generated custom resource.' }]
-        // );
-        // NagSuppressions.addResourceSuppressionsByPath(
-        //     this,
-        //     `/${this.stackName}/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource`,
-        //     [{ id: 'AwsSolutions-IAM5', reason: 'Uncontrollable due to CDK-generated custom resource.' }]
-        // );
     }
 }
