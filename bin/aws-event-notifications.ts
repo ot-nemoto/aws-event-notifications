@@ -11,6 +11,8 @@ const app = new cdk.App();
 Aspects.of(app).add(new AwsSolutionsChecks({ verbose: true }));
 
 new AwsEventNotigicationsStack(app, 'AwsEventNotigicationsStack', {
+    // Slack Workspace ID
     slackWorkspaceId: app.node.tryGetContext('slack_workspace_id') ?? '',
+    // Slack Channel ID
     slackChannelId: app.node.tryGetContext('slack_channel_id') ?? '',
 });
