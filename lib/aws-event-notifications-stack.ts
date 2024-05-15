@@ -2,6 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as events from 'aws-cdk-lib/aws-events';
 import { ChatbotNotice } from './resource/chatbot-notice';
+import { IncomingWebhookNotice } from './resource/incoming-webhook-notice';
 
 export interface AwsEventNotigicationsStackProps extends cdk.StackProps {
     // Slack Workspace ID
@@ -15,6 +16,11 @@ export class AwsEventNotigicationsStack extends cdk.Stack {
         super(scope, id, props);
 
         const chatbotNotice = new ChatbotNotice(this, 'ChatbotNotice', {
+            slackWorkspaceId: props.slackWorkspaceId,
+            slackChannelId: props.slackChannelId,
+        });
+
+        const incomingWebhookNotice = new IncomingWebhookNotice(this, 'IncomingWebhookNotice', {
             slackWorkspaceId: props.slackWorkspaceId,
             slackChannelId: props.slackChannelId,
         });
