@@ -28,7 +28,7 @@ export class IncomingWebhookNotice extends Construct {
         // AWS Lambda
         const func = new lambda.Function(this, 'IncomingWebhookFunction', {
             functionName: 'IncomingWebhookFunction',
-            code: lambda.Code.fromAsset('lambda'),
+            code: lambda.Code.fromAsset('lambda/incomin-webhook-notice/'),
             runtime: lambda.Runtime.NODEJS_20_X,
             handler: 'index.handler',
         });
