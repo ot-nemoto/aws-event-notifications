@@ -4,6 +4,9 @@
     "prettier.singleQuote": true,
     "prettier.tabWidth": 4,
     "prettier.printWidth": 120,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
     "[markdown]": {
         "prettier.tabWidth": 2
     }

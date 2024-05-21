@@ -1,8 +1,8 @@
-import { Construct } from 'constructs';
-import * as sns from 'aws-cdk-lib/aws-sns';
 import * as chatbot from 'aws-cdk-lib/aws-chatbot';
 import * as iam from 'aws-cdk-lib/aws-iam';
+import * as sns from 'aws-cdk-lib/aws-sns';
 import { NagSuppressions } from 'cdk-nag';
+import { Construct } from 'constructs';
 
 export interface ChatbotNoticeProps {
     // Slack Workspace ID

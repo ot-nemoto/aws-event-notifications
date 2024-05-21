@@ -1,6 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
-import { Construct } from 'constructs';
 import * as events from 'aws-cdk-lib/aws-events';
+import { Construct } from 'constructs';
 import { ChatbotNotice } from './resource/chatbot-notice';
 
 export interface AwsEventNotigicationsStackProps extends cdk.StackProps {
