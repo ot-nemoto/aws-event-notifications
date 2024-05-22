@@ -41,5 +41,11 @@ export class AwsEventNotigicationsStack extends cdk.Stack {
         new cdk.CfnOutput(this, 'version', {
             value: process.env.npm_package_version || '0.1.0',
         });
+        new cdk.CfnOutput(this, 'slack_workspace_id', {
+            value: props.slackWorkspaceId,
+        });
+        new cdk.CfnOutput(this, 'slack_channel_id', {
+            value: props.slackChannelId,
+        });
     }
 }
