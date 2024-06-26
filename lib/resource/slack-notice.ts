@@ -4,23 +4,23 @@ import * as sns from 'aws-cdk-lib/aws-sns';
 import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
 
-export interface ChatbotNoticeProps {
+export interface SlackNoticeProps {
     // Slack Workspace ID
     slackWorkspaceId: string;
     // Slack Channel ID
     slackChannelId: string;
 }
 
-export class ChatbotNotice extends Construct {
+export class SlackNotice extends Construct {
     public readonly topic: sns.Topic;
     public readonly channelConfiguration: chatbot.SlackChannelConfiguration;
 
-    constructor(scope: Construct, id: string, props: ChatbotNoticeProps) {
+    constructor(scope: Construct, id: string, props: SlackNoticeProps) {
         super(scope, id);
 
         // Amazon SNS
         this.topic = new sns.Topic(this, 'SnsTopic', {
-            topicName: 'aws-event-chatbot-notice',
+            topicName: 'aws-event-slack-notice',
             enforceSSL: true, // AwsSolutions-SNS3
         });
         NagSuppressions.addResourceSuppressions(this.topic, [
@@ -60,7 +60,7 @@ export class ChatbotNotice extends Construct {
 
         // AWS Chatbot
         this.channelConfiguration = new chatbot.SlackChannelConfiguration(this, 'ChatbotSlackChannelConfiguration', {
-            slackChannelConfigurationName: 'aws-event-chatbot-notice',
+            slackChannelConfigurationName: 'aws-event-slack-notice',
             slackWorkspaceId: props.slackWorkspaceId,
             slackChannelId: props.slackChannelId,
             guardrailPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('ReadOnlyAccess')],

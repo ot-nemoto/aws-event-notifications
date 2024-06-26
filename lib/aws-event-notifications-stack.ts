@@ -1,7 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import * as events from 'aws-cdk-lib/aws-events';
 import { Construct } from 'constructs';
-import { ChatbotNotice } from './resource/chatbot-notice';
+import { SlackNotice } from './resource/slack-notice';
 
 export interface AwsEventNotigicationsStackProps extends cdk.StackProps {
     // Slack Workspace ID
@@ -14,7 +14,7 @@ export class AwsEventNotigicationsStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props: AwsEventNotigicationsStackProps) {
         super(scope, id, props);
 
-        const chatbotNotice = new ChatbotNotice(this, 'ChatbotNotice', {
+        const slackNotice = new SlackNotice(this, 'SlackNotice', {
             slackWorkspaceId: props.slackWorkspaceId,
             slackChannelId: props.slackChannelId,
         });
@@ -26,16 +26,16 @@ export class AwsEventNotigicationsStack extends cdk.Stack {
             eventPattern: {
                 source: ['aws.health'],
             },
-            targets: [new cdk.aws_events_targets.SnsTopic(chatbotNotice.topic)],
+            targets: [new cdk.aws_events_targets.SnsTopic(slackNotice.topic)],
         });
-        new events.Rule(this, 'AwsSavingsplansEventsRule', {
-            ruleName: 'aws-savingsplans-notification',
-            description: 'aws.savingsplans rules created by aws-event-notifications.',
-            eventPattern: {
-                source: ['aws.savingsplans'],
-            },
-            targets: [new cdk.aws_events_targets.SnsTopic(chatbotNotice.topic)],
-        });
+        // new events.Rule(this, 'AwsSavingsplansEventsRule', {
+        //     ruleName: 'aws-savingsplans-notification',
+        //     description: 'aws.savingsplans rules created by aws-event-notifications.',
+        //     eventPattern: {
+        //         source: ['aws.savingsplans'],
+        //     },
+        //     targets: [new cdk.aws_events_targets.SnsTopic(slackNotice.topic)],
+        // });
 
         // Outputs
         new cdk.CfnOutput(this, 'version', {
