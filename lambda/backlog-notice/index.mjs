@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { customAction } from './events/securityhub.mjs';
+import { CustomAction } from './events/securityhub.mjs';
 
 export const handler = async (event) => {
     console.info(JSON.stringify(event, null, 2));
@@ -8,8 +8,11 @@ export const handler = async (event) => {
 
     let formData = {};
     if (message['source'] === 'aws.securityhub' && message['detail-type'] === 'Security Hub Findings - Custom Action') {
-        formData = customAction(message);
+        formData = new CustomAction(message).createFormData();
+    } else {
+        throw new Error('Unsupported event source');
     }
+
     console.info(JSON.stringify(formData, null, 2));
 
     try {
