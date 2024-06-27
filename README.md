@@ -27,6 +27,12 @@ backlog_project_id=145494
 backlog_api_key=6aGHdmJZNMixNXljT2YfgKVAw2JGNuX27RJ7NM7Sxi7lJgqydptBqCBKcLwiMpUl
 ```
 
+## Lambda 用のパッケージインストール
+
+```sh
+cd lambda/backlog-notice && npm install
+```
+
 ## インフラをデプロイ
 
 ```sh
