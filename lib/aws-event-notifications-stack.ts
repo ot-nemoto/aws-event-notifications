@@ -1,13 +1,21 @@
 import * as cdk from 'aws-cdk-lib';
 import * as events from 'aws-cdk-lib/aws-events';
 import { Construct } from 'constructs';
+import { BacklogNotice } from './resource/backlog-notice';
 import { SlackNotice } from './resource/slack-notice';
 
 export interface AwsEventNotigicationsStackProps extends cdk.StackProps {
-    // Slack Workspace ID
+    // =========================================================================
+    // Slack Notice
+    // =========================================================================
     slackWorkspaceId: string;
-    // Slack Channel ID
     slackChannelId: string;
+    // =========================================================================
+    // Backlog Notice
+    // =========================================================================
+    backlogSpaceName: string;
+    backlogProjectId: string;
+    backlogApiKey: string;
 }
 
 export class AwsEventNotigicationsStack extends cdk.Stack {
@@ -15,8 +23,14 @@ export class AwsEventNotigicationsStack extends cdk.Stack {
         super(scope, id, props);
 
         const slackNotice = new SlackNotice(this, 'SlackNotice', {
-            slackWorkspaceId: props.slackWorkspaceId,
-            slackChannelId: props.slackChannelId,
+            workspaceId: props.slackWorkspaceId,
+            channelId: props.slackChannelId,
+        });
+
+        const backlogNotice = new BacklogNotice(this, 'BacklogNotice', {
+            spaceName: props.backlogSpaceName,
+            projectId: props.backlogProjectId,
+            apiKey: props.backlogApiKey,
         });
 
         // Amazon EventBridge
@@ -28,14 +42,15 @@ export class AwsEventNotigicationsStack extends cdk.Stack {
             },
             targets: [new cdk.aws_events_targets.SnsTopic(slackNotice.topic)],
         });
-        // new events.Rule(this, 'AwsSavingsplansEventsRule', {
-        //     ruleName: 'aws-savingsplans-notification',
-        //     description: 'aws.savingsplans rules created by aws-event-notifications.',
-        //     eventPattern: {
-        //         source: ['aws.savingsplans'],
-        //     },
-        //     targets: [new cdk.aws_events_targets.SnsTopic(slackNotice.topic)],
-        // });
+        new events.Rule(this, 'AwsSecurityHubEventsRule', {
+            ruleName: 'aws-securityhub-notification',
+            description: 'aws.securityhub rules created by aws-event-notifications.',
+            eventPattern: {
+                source: ['aws.securityhub'],
+                detailType: ['Security Hub Findings - Custom Action'],
+            },
+            targets: [new cdk.aws_events_targets.SnsTopic(backlogNotice.topic)],
+        });
 
         // Outputs
         new cdk.CfnOutput(this, 'version', {
@@ -46,6 +61,15 @@ export class AwsEventNotigicationsStack extends cdk.Stack {
         });
         new cdk.CfnOutput(this, 'slack_channel_id', {
             value: props.slackChannelId,
+        });
+        new cdk.CfnOutput(this, 'backlog_space_name', {
+            value: props.backlogSpaceName,
+        });
+        new cdk.CfnOutput(this, 'backlog_project_id', {
+            value: props.backlogProjectId,
+        });
+        new cdk.CfnOutput(this, 'backlog_api_key', {
+            value: props.backlogApiKey,
         });
     }
 }

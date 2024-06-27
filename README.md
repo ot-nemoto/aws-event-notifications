@@ -17,13 +17,37 @@
   - 設定したクライアントから SLACK_WORKSPACE_ID を取得
 - 通知先の Slack のチャンネルから SLACK_CHANNEL_ID を取得
 
+## .env ファイルの作成
+
+```sh
+slack_workspace_id=T06PCDXKBE1
+slack_channel_id=C06PGHRS58T
+backlog_space_name=kankouyoho
+backlog_project_id=145494
+backlog_api_key=6aGHdmJZNMixNXljT2YfgKVAw2JGNuX27RJ7NM7Sxi7lJgqydptBqCBKcLwiMpUl
+```
+
 ## インフラをデプロイ
 
 ```sh
-npx cdk deploy \
-    -c slack_workspace_id=SLACK_WORKSPACE_ID \
-    -c slack_channel_id=SLACK_CHANNEL_ID
+mpx cdk deploy
+
+# 環境変数を指定してデプロイ
+# npx cdk deploy \
+#     -c slack_workspace_id=SLACK_WORKSPACE_ID \
+#     -c slack_channel_id=SLACK_CHANNEL_ID \
+#     -c backlog_space_name=BACKLOG_SPACE_NAME \
+#     -c backlog_project_id=BACKLOG_PROJECT_ID \
+#     -c backlog_api_key=BACKLOG_API_KEY
 ```
+
+| 環境変数           | 説明                      |
+| ------------------ | ------------------------- |
+| slack_workspace_id | Slack のワークスペース ID |
+| slack_channel_id   | Slack のチャンネル ID     |
+| backlog_space_name | Backlog のスペース名      |
+| backlog_project_id | Backlog のプロジェクト ID |
+| backlog_api_key    | Backlog の API キー       |
 
 ## その他
 
@@ -42,9 +66,7 @@ npx cdk synth
 ### 差分確認
 
 ```sh
-npx cdk diff \
-    -c slack_workspace_id=SLACK_WORKSPACE_ID \
-    -c slack_channel_id=SLACK_CHANNEL_ID
+npx cdk diff
 ```
 
 ### テスト実行
