@@ -54,21 +54,27 @@ export class AwsEventNotigicationsStack extends cdk.Stack {
 
         // Outputs
         new cdk.CfnOutput(this, 'version', {
+            key: 'Version',
             value: process.env.npm_package_version || '0.1.0',
         });
         new cdk.CfnOutput(this, 'slack_workspace_id', {
+            key: 'SlackWorkspaceId',
             value: props.slackWorkspaceId,
         });
         new cdk.CfnOutput(this, 'slack_channel_id', {
+            key: 'SlackChannelId',
             value: props.slackChannelId,
         });
         new cdk.CfnOutput(this, 'backlog_space_name', {
+            key: 'BacklogSpaceName',
             value: props.backlogSpaceName,
         });
         new cdk.CfnOutput(this, 'backlog_project_id', {
+            key: 'BacklogProjectId',
             value: props.backlogProjectId,
         });
         new cdk.CfnOutput(this, 'backlog_api_key', {
+            key: 'BackloggApiKey',
             value: props.backlogApiKey,
         });
     }
