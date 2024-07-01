@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CustomAction } from './events/securityhub.mjs';
+import { formData as customAction } from './issue_forms/securityhub/custom_action.mjs';
 
 export const handler = async (event) => {
     console.info(JSON.stringify(event, null, 2));
@@ -8,12 +8,12 @@ export const handler = async (event) => {
 
     let formData = {};
     if (message['source'] === 'aws.securityhub' && message['detail-type'] === 'Security Hub Findings - Custom Action') {
-        formData = new CustomAction(message).createFormData();
+        formData = customAction(message);
     } else {
         throw new Error('Unsupported event source');
     }
 
-    console.info(JSON.stringify(formData, null, 2));
+    console.info(formData);
 
     try {
         const response = await axios.post(`https://${process.env.SPACE_NAME}.backlog.com/api/v2/issues`, formData, {
@@ -35,3 +35,5 @@ export const handler = async (event) => {
         message: 'OK',
     };
 };
+
+console.log('Loaded backlog-notice');

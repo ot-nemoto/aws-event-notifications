@@ -3,7 +3,7 @@
 - Amazon EventBridge を監視し、Slack に通知するインフラを構築する
 - 監視するイベント
   - `aws.health`
-  - `aws.savingsplans`
+  - `aws.securityhub`
 
 ## デプロイの準備
 
@@ -13,9 +13,19 @@
   cdk bootstrap
   ```
 
+_SlackNotice_
+
 - [AWS Chatbot](https://us-east-2.console.aws.amazon.com/chatbot/home?region=us-east-2#/home)で、クライアントの設定
   - 設定したクライアントから SLACK_WORKSPACE_ID を取得
 - 通知先の Slack のチャンネルから SLACK_CHANNEL_ID を取得
+
+_BacklogNotice_
+
+- AWS Security Hub の有効化
+- Custom Action の作成
+- BacklogAPI のキーを取得
+  - Backlog API から API キーを取得
+  - スペース名とプロジェクト ID を取得
 
 ## .env ファイルの作成
 
@@ -80,3 +90,8 @@ npx cdk diff
 ```sh
 tsc && npm test
 ```
+
+##　参考資料
+
+- Backlog
+  - [課題の追加](https://developer.nulab.com/ja/docs/backlog/api/2/add-issue/)
