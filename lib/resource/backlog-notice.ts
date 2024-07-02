@@ -12,6 +12,8 @@ export interface BacklogNoticeProps {
     projectId: string;
     // API Key
     apiKey: string;
+    // Issue Type ID
+    issueTypeId: string;
 }
 
 export class BacklogNotice extends Construct {
@@ -40,6 +42,7 @@ export class BacklogNotice extends Construct {
                 SPACE_NAME: props.spaceName,
                 PROJECT_ID: props.projectId,
                 API_KEY: props.apiKey,
+                ISSUE_TYPE_ID: props.issueTypeId,
             },
             runtime: lambda.Runtime.NODEJS_20_X,
             handler: 'index.handler',

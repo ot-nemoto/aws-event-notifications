@@ -22,4 +22,5 @@ new AwsEventNotigicationsStack(app, 'AwsEventNotigicationsStack', {
     backlogSpaceName: app.node.tryGetContext('backlog_space_name') ?? process.env.backlog_space_name ?? '',
     backlogProjectId: app.node.tryGetContext('backlog_project_id') ?? process.env.backlog_project_id ?? '',
     backlogApiKey: app.node.tryGetContext('backlog_api_key') ?? process.env.backlog_api_key ?? '',
+    backlogIssueTypeId: app.node.tryGetContext('backlog_issue_type_id') ?? process.env.backlog_issue_type_id ?? '',
 });

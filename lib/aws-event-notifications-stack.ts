@@ -16,6 +16,7 @@ export interface AwsEventNotigicationsStackProps extends cdk.StackProps {
     backlogSpaceName: string;
     backlogProjectId: string;
     backlogApiKey: string;
+    backlogIssueTypeId: string;
 }
 
 export class AwsEventNotigicationsStack extends cdk.Stack {
@@ -31,6 +32,7 @@ export class AwsEventNotigicationsStack extends cdk.Stack {
             spaceName: props.backlogSpaceName,
             projectId: props.backlogProjectId,
             apiKey: props.backlogApiKey,
+            issueTypeId: props.backlogIssueTypeId,
         });
 
         // Amazon EventBridge
@@ -76,6 +78,10 @@ export class AwsEventNotigicationsStack extends cdk.Stack {
         new cdk.CfnOutput(this, 'backlog_api_key', {
             key: 'BackloggApiKey',
             value: props.backlogApiKey,
+        });
+        new cdk.CfnOutput(this, 'backlog_issue_type_id', {
+            key: 'BackloggIssueTypeId',
+            value: props.backlogIssueTypeId,
         });
     }
 }

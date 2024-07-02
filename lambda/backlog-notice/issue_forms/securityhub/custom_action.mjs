@@ -27,7 +27,7 @@ const DESCRIPTION = `
 \`\`\`
 `;
 
-export const formData = (message) => {
+export const issueForm = (message) => {
     const finding = {
         id: message['detail']['findings'][0]['Id'],
         title: message['detail']['findings'][0]['Title'],
@@ -52,8 +52,8 @@ export const formData = (message) => {
 
     return querystring.stringify({
         projectId: process.env.PROJECT_ID,
-        issueTypeId: 795916,
-        priorityId: 3,
+        issueTypeId: process.env.ISSUE_TYPE_ID,
+        priorityId: ['CRITICAL', 'HIGH'].includes(finding.severity) ? 2 : 3,
         summary: finding.title,
         description: description,
     });

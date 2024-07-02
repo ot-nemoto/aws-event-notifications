@@ -29,12 +29,23 @@ _BacklogNotice_
 
 ## .env ファイルの作成
 
+| 環境変数           | 説明                      |
+| ------------------ | ------------------------- |
+| backlog_space_name | Backlog のスペース名      |
+| backlog_project_id | Backlog のプロジェクト ID |
+| backlog_api_key    | Backlog の API キー       |
+| backlog_issue_type | Backlog の課題種別        |
+| slack_workspace_id | Slack のワークスペース ID |
+| slack_channel_id   | Slack のチャンネル ID     |
+
 ```sh
-slack_workspace_id=T06PCDXKBE1
-slack_channel_id=C06PGHRS58T
-backlog_space_name=kankouyoho
-backlog_project_id=145494
-backlog_api_key=6aGHdmJZNMixNXljT2YfgKVAw2JGNuX27RJ7NM7Sxi7lJgqydptBqCBKcLwiMpUl
+backlog_space_name=
+backlog_project_id=
+backlog_api_key=
+backlog_issue_type=
+
+slack_workspace_id=
+slack_channel_id=
 ```
 
 ## Lambda 用のパッケージインストール
@@ -54,16 +65,9 @@ mpx cdk deploy
 #     -c slack_channel_id=SLACK_CHANNEL_ID \
 #     -c backlog_space_name=BACKLOG_SPACE_NAME \
 #     -c backlog_project_id=BACKLOG_PROJECT_ID \
-#     -c backlog_api_key=BACKLOG_API_KEY
+#     -c backlog_api_key=BACKLOG_API_KEY \
+#     -c backlog_issue_type=BACKLOG_ISSUE_TYPE
 ```
-
-| 環境変数           | 説明                      |
-| ------------------ | ------------------------- |
-| slack_workspace_id | Slack のワークスペース ID |
-| slack_channel_id   | Slack のチャンネル ID     |
-| backlog_space_name | Backlog のスペース名      |
-| backlog_project_id | Backlog のプロジェクト ID |
-| backlog_api_key    | Backlog の API キー       |
 
 ## その他
 
