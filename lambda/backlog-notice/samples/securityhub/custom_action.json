@@ -1,0 +1,116 @@
+{
+    "version": "0",
+    "id": "e215f5c7-a866-e0cd-6d11-fc7ecf97e381",
+    "detail-type": "Security Hub Findings - Custom Action",
+    "source": "aws.securityhub",
+    "account": "123456789012",
+    "time": "2019-04-11T22:06:13Z",
+    "region": "us-east-1",
+    "resources": ["arn:aws:securityhub:us-east-1:123456789012:action/custom/slackMessaging"],
+    "detail": {
+        "actionName": "SendToSlack",
+        "actionDescription": "Send Findings to Slack",
+        "findings": [
+            {
+                "SchemaVersion": "2018-10-08",
+                "Id": "arn:aws:securityhub:us-east-1:123456789012:subscription/cis-aws-foundations-benchmark/v/1.2.0/1.12/finding/17932c44-6d58-4b3c",
+                "ProductArn": "arn:aws:securityhub:us-east-1::product/aws/securityhub",
+                "GeneratorId": "arn:aws:securityhub:::ruleset/cis-aws-foundations-benchmark/v/1.2.0/rule/1.12",
+                "AwsAccountId": "123456789012",
+                "Types": [
+                    "Software and Configuration Checks/Industry and Regulatory Standards/CIS AWS Foundations Benchmark"
+                ],
+                "FirstObservedAt": "2018-12-02T05:06:34.874Z",
+                "LastObservedAt": "2019-04-11T18:07:10.995Z",
+                "CreatedAt": "2018-12-02T05:06:34.874Z",
+                "UpdatedAt": "2019-04-11T18:26:20.631Z",
+                "Severity": {
+                    "Product": 0,
+                    "Normalized": 0
+                },
+                "Title": "1.12 Ensure no root account access key exists",
+                "Description": "The root account is the most privileged user in an AWS account...",
+                "Remediation": {
+                    "Recommendation": {
+                        "Text": "For directions on how to fix this issue, please consult the AWS Security Hub CIS documentation.",
+                        "Url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html#securityhub-standards-checks-1.12"
+                    }
+                },
+                "ProductFields": {
+                    "StandardsGuideArn": "arn:aws:securityhub:::ruleset/cis-aws-foundations-benchmark/v/1.2.0",
+                    "StandardsGuideSubscriptionArn": "arn:aws:securityhub:us-east-1:123456789012:subscription/cis-aws-foundations-benchmark/v/1.2.0",
+                    "RuleId": "1.12",
+                    "RecommendationUrl": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html#securityhub-standards-checks-1.12",
+                    "RecordState": "ACTIVE",
+                    "aws/securityhub/FindingId": "arn:aws:securityhub:us-east-1::product/aws/securityhub/arn:aws:securityhub:us-east-1:123456789012:subscription/cis-aws-foundations-benchmark/v/1.2.0/1.12/finding/17932c44-6d58-4b3c",
+                    "aws/securityhub/SeverityLabel": "INFORMATIONAL",
+                    "aws/securityhub/ProductName": "Security Hub",
+                    "aws/securityhub/CompanyName": "AWS"
+                },
+                "Resources": [
+                    {
+                        "Type": "AwsAccount",
+                        "Id": "AWS::::Account:123456789012",
+                        "Partition": "aws",
+                        "Region": "us-east-1"
+                    }
+                ],
+                "Compliance": {
+                    "Status": "PASSED"
+                },
+                "RecordState": "ACTIVE",
+                "WorkflowState": "NEW"
+            },
+            {
+                "SchemaVersion": "2018-10-08",
+                "Id": "arn:aws:securityhub:us-east-1:123456789012:subscription/cis-aws-foundations-benchmark/v/1.2.0/2.8/finding/5d6b42d8-122b-4cdf-8498-e045752e170c",
+                "ProductArn": "arn:aws:securityhub:us-east-1::product/aws/securityhub",
+                "GeneratorId": "arn:aws:securityhub:::ruleset/cis-aws-foundations-benchmark/v/1.2.0/rule/2.8",
+                "AwsAccountId": "123456789012",
+                "Types": [
+                    "Software and Configuration Checks/Industry and Regulatory Standards/CIS AWS Foundations Benchmark"
+                ],
+                "FirstObservedAt": "2019-01-05T05:21:44.990Z",
+                "LastObservedAt": "2019-04-11T18:26:12.510Z",
+                "CreatedAt": "2019-01-05T05:21:44.990Z",
+                "UpdatedAt": "2019-04-11T18:26:12.510Z",
+                "Severity": {
+                    "Product": 0,
+                    "Normalized": 0
+                },
+                "Title": "2.8 Ensure rotation for customer created CMKs is enabled",
+                "Description": "AWS Key Management Service (KMS) allows customers to rotate the backing key...",
+                "Remediation": {
+                    "Recommendation": {
+                        "Text": "For directions on how to fix this issue, please consult the AWS Security Hub CIS documentation.",
+                        "Url": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html#securityhub-standards-checks-2.8"
+                    }
+                },
+                "ProductFields": {
+                    "StandardsGuideArn": "arn:aws:securityhub:::ruleset/cis-aws-foundations-benchmark/v/1.2.0",
+                    "StandardsGuideSubscriptionArn": "arn:aws:securityhub:us-east-1:123456789012:subscription/cis-aws-foundations-benchmark/v/1.2.0",
+                    "RuleId": "2.8",
+                    "RecommendationUrl": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html#securityhub-standards-checks-2.8",
+                    "RecordState": "ACTIVE",
+                    "aws/securityhub/FindingId": "arn:aws:securityhub:us-east-1::product/aws/securityhub/arn:aws:securityhub:us-east-1:123456789012:subscription/cis-aws-foundations-benchmark/v/1.2.0/2.8/finding/5d6b42d8-122b-4cdf-8498-e045752e170c",
+                    "aws/securityhub/SeverityLabel": "INFORMATIONAL",
+                    "aws/securityhub/ProductName": "Security Hub",
+                    "aws/securityhub/CompanyName": "AWS"
+                },
+                "Resources": [
+                    {
+                        "Type": "AwsAccount",
+                        "Id": "AWS::::Account:123456789012",
+                        "Partition": "aws",
+                        "Region": "us-east-1"
+                    }
+                ],
+                "Compliance": {
+                    "Status": "PASSED"
+                },
+                "RecordState": "ACTIVE",
+                "WorkflowState": "NEW"
+            }
+        ]
+    }
+}
