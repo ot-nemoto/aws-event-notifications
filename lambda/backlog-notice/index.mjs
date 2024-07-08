@@ -1,22 +1,22 @@
 import axios from 'axios';
-import { issueForm as ifCustomAction } from './issue_forms/securityhub/custom_action.mjs';
+import { CustomAction } from './request_bodies/securityhub/custom_action.mjs';
 
 export const handler = async (event) => {
     console.info(JSON.stringify(event, null, 2));
     const message = JSON.parse(event['Records'][0]['Sns']['Message']);
     console.info(JSON.stringify(message, null, 2));
 
-    let issueForm = {};
+    let requestBody = {};
     if (message['source'] === 'aws.securityhub' && message['detail-type'] === 'Security Hub Findings - Custom Action') {
-        issueForm = ifCustomAction(message);
+        requestBody = CustomAction.requestBody(message);
     } else {
         throw new Error('Unsupported event source');
     }
 
-    console.info(issueForm);
+    console.info(requestBody);
 
     try {
-        const response = await axios.post(`https://${process.env.SPACE_NAME}.backlog.com/api/v2/issues`, issueForm, {
+        const response = await axios.post(`https://${process.env.SPACE_NAME}.backlog.com/api/v2/issues`, requestBody, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
