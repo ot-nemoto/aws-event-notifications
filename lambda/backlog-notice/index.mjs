@@ -8,7 +8,7 @@ export const handler = async (event) => {
 
     let requestBody = {};
     if (message['source'] === 'aws.securityhub' && message['detail-type'] === 'Security Hub Findings - Custom Action') {
-        requestBody = CustomAction.requestBody(message);
+        requestBody = new CustomAction(message).requestBody();
     } else {
         throw new Error('Unsupported event source');
     }

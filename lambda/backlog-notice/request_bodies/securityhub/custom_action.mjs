@@ -1,8 +1,7 @@
 import querystring from 'querystring';
 
 export class CustomAction {
-    // The template for the description field of the issue form
-    static TEMPLATE = `
+    static template = `
 ## Description
 
 <description>
@@ -29,9 +28,10 @@ export class CustomAction {
 \`\`\`
 `;
 
-    // Create the request body for the issue form
-    static requestBody(message) {
-        const finding = {
+    constructor(message) {
+        this.message = message;
+
+        this.finding = {
             id: message['detail']['findings'][0]['Id'],
             title: message['detail']['findings'][0]['Title'],
             description: message['detail']['findings'][0]['Description'],
@@ -42,23 +42,41 @@ export class CustomAction {
             region: message['detail']['findings'][0]['Region'],
         };
 
-        console.info(JSON.stringify(finding, null, 2));
+        console.info(JSON.stringify(this.finding, null, 2));
+    }
 
-        const description = this.TEMPLATE.replaceAll('<description>', finding.description)
-            .replaceAll('<sourceUrl>', finding.sourceUrl ? `(${finding.sourceUrl})` : '')
-            .replaceAll('<severity>', finding.severity)
-            .replaceAll('<resourceId>', finding.resourceId)
-            .replaceAll('<region>', finding.region)
-            .replaceAll('<id>', finding.id)
-            .replaceAll('<recommendationUrl>', finding.recommendationUrl ? `(${finding.recommendationUrl})` : '')
-            .replaceAll('<original>', JSON.stringify(message, null, 2));
+    priorityId() {
+        return ['CRITICAL', 'HIGH'].includes(this.finding.severity) ? 2 : 3;
+    }
 
+    summary() {
+        return this.finding.title;
+    }
+
+    description() {
+        return CustomAction.template
+            .replaceAll('<description>', this.finding.description)
+            .replaceAll('<sourceUrl>', this.finding.sourceUrl ? `(${this.finding.sourceUrl})` : '')
+            .replaceAll('<severity>', this.finding.severity)
+            .replaceAll('<resourceId>', this.finding.resourceId)
+            .replaceAll('<region>', this.finding.region)
+            .replaceAll('<id>', this.finding.id)
+            .replaceAll(
+                '<recommendationUrl>',
+                this.finding.recommendationUrl ? `(${this.finding.recommendationUrl})` : ''
+            )
+            .replaceAll('<original>', JSON.stringify(this.message, null, 2));
+    }
+
+    requestBody() {
         return querystring.stringify({
             projectId: process.env.PROJECT_ID,
             issueTypeId: process.env.ISSUE_TYPE_ID,
-            priorityId: ['CRITICAL', 'HIGH'].includes(finding.severity) ? 2 : 3,
-            summary: finding.title,
-            description: description,
+            priorityId: this.priorityId(),
+            summary: this.summary(),
+            description: this.description(),
         });
     }
 }
+
+Object.freeze(CustomAction);
