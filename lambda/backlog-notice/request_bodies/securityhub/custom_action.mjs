@@ -1,4 +1,5 @@
 import querystring from 'querystring';
+import { getCategory, getVersion } from '../../backlog.mjs';
 
 export class CustomAction {
     static template = `
@@ -69,13 +70,18 @@ export class CustomAction {
             .replaceAll('<original>', JSON.stringify(this.message, null, 2));
     }
 
-    requestBody() {
+    async requestBody() {
+        const category = await getCategory(this.finding.accountId);
+        const milestone = await getVersion(this.message['source']);
+
         return querystring.stringify({
             projectId: process.env.PROJECT_ID,
             issueTypeId: process.env.ISSUE_TYPE_ID,
             priorityId: this.priorityId(),
             summary: this.summary(),
             description: this.description(),
+            'categoryId[]': category.id,
+            'milestoneId[]': milestone.id,
         });
     }
 }

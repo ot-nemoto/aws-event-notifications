@@ -99,3 +99,7 @@ tsc && npm test
 
 - Backlog
   - [課題の追加](https://developer.nulab.com/ja/docs/backlog/api/2/add-issue/)
+  - [カテゴリー一覧の取得](https://developer.nulab.com/ja/docs/backlog/api/2/get-category-list/)
+  - [カテゴリーの追加](https://developer.nulab.com/ja/docs/backlog/api/2/add-category/)
+  - [バージョン(マイルストーン)一覧の取得](https://developer.nulab.com/ja/docs/backlog/api/2/get-version-milestone-list/)
+  - [バージョン(マイルストーン)の追加](https://developer.nulab.com/ja/docs/backlog/api/2/add-version-milestone/)

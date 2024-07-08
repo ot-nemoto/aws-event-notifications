@@ -8,7 +8,7 @@ export const handler = async (event) => {
 
     let requestBody = {};
     if (message['source'] === 'aws.securityhub' && message['detail-type'] === 'Security Hub Findings - Custom Action') {
-        requestBody = new CustomAction(message).requestBody();
+        requestBody = await new CustomAction(message).requestBody();
     } else {
         throw new Error('Unsupported event source');
     }
@@ -35,5 +35,3 @@ export const handler = async (event) => {
         message: 'OK',
     };
 };
-
-console.log('Loaded backlog-notice');
