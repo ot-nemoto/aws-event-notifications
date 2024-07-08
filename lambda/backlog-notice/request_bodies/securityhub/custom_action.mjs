@@ -33,6 +33,7 @@ export class CustomAction {
 
         this.finding = {
             id: message['detail']['findings'][0]['Id'],
+            accountId: message['detail']['findings'][0]['AwsAccountId'],
             title: message['detail']['findings'][0]['Title'],
             description: message['detail']['findings'][0]['Description'],
             sourceUrl: message['detail']['findings'][0]['SourceUrl'],
