@@ -51,7 +51,10 @@ export class AwsEventNotigicationsStack extends cdk.Stack {
                 source: ['aws.securityhub'],
                 detailType: ['Security Hub Findings - Custom Action'],
             },
-            targets: [new cdk.aws_events_targets.SnsTopic(backlogNotice.topic)],
+            targets: [
+                new cdk.aws_events_targets.SnsTopic(slackNotice.topic),
+                new cdk.aws_events_targets.SnsTopic(backlogNotice.topic),
+            ],
         });
 
         // Outputs
