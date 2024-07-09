@@ -47,6 +47,7 @@ export class BacklogNotice extends Construct {
             runtime: lambda.Runtime.NODEJS_20_X,
             handler: 'index.handler',
             timeout: cdk.Duration.seconds(30),
+            reservedConcurrentExecutions: 1,
         });
 
         this.topic.addSubscription(new LambdaSubscription(func));

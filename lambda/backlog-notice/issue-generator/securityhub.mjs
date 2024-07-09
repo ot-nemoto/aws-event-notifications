@@ -1,7 +1,7 @@
 import querystring from 'querystring';
-import { getCategory, getVersion } from '../../backlog.mjs';
+import { getCategory, getCustomField, getVersion } from '../backlog.mjs';
 
-export class CustomAction {
+export class SecurityHub {
     static template = `
 ## Description
 
@@ -70,9 +70,14 @@ export class CustomAction {
             .replaceAll('<original>', JSON.stringify(this.message, null, 2));
     }
 
+    eventId() {
+        return this.finding.id;
+    }
+
     async requestBody() {
         const category = await getCategory(this.finding.accountId);
         const milestone = await getVersion(this.message['source']);
+        const customField = await getCustomField('event_id');
 
         return querystring.stringify({
             projectId: process.env.PROJECT_ID,
@@ -82,8 +87,9 @@ export class CustomAction {
             description: this.description(),
             'categoryId[]': category.id,
             'milestoneId[]': milestone.id,
+            [`customField_${customField.id}`]: this.eventId(),
         });
     }
 }
 
-Object.freeze(CustomAction);
+Object.freeze(SecurityHub);

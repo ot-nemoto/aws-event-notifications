@@ -95,11 +95,14 @@ npx cdk diff
 tsc && npm test
 ```
 
-##　参考資料
+## 参考資料
 
 - Backlog
   - [課題の追加](https://developer.nulab.com/ja/docs/backlog/api/2/add-issue/)
+  - [課題一覧の取得](https://developer.nulab.com/ja/docs/backlog/api/2/get-issue-list/)
   - [カテゴリー一覧の取得](https://developer.nulab.com/ja/docs/backlog/api/2/get-category-list/)
   - [カテゴリーの追加](https://developer.nulab.com/ja/docs/backlog/api/2/add-category/)
   - [バージョン(マイルストーン)一覧の取得](https://developer.nulab.com/ja/docs/backlog/api/2/get-version-milestone-list/)
   - [バージョン(マイルストーン)の追加](https://developer.nulab.com/ja/docs/backlog/api/2/add-version-milestone/)
+  - [カスタム属性一覧の取得](https://developer.nulab.com/ja/docs/backlog/api/2/get-custom-field-list/)
+  - [カスタム属性の追加](https://developer.nulab.com/ja/docs/backlog/api/2/add-custom-field/)

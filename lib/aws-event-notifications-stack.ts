@@ -36,25 +36,40 @@ export class AwsEventNotigicationsStack extends cdk.Stack {
         });
 
         // Amazon EventBridge
-        new events.Rule(this, 'AwsHealthEventsRule', {
-            ruleName: 'aws-health-notification',
+        new events.Rule(this, 'AwsHealthRule', {
+            // ruleName: 'aws-health-notification',
             description: 'aws.health rules created by aws-event-notifications.',
             eventPattern: {
                 source: ['aws.health'],
             },
             targets: [new cdk.aws_events_targets.SnsTopic(slackNotice.topic)],
         });
-        new events.Rule(this, 'AwsSecurityHubEventsRule', {
-            ruleName: 'aws-securityhub-notification',
-            description: 'aws.securityhub rules created by aws-event-notifications.',
+        // new events.Rule(this, 'AwsSecurityHubCustomActionRule', {
+        //     // ruleName: 'aws-securityhub-notification',
+        //     description: 'aws.securityhub - custom action rules created by aws-event-notifications.',
+        //     eventPattern: {
+        //         source: ['aws.securityhub'],
+        //         detailType: ['Security Hub Findings - Custom Action'],
+        //     },
+        //     targets: [
+        //         new cdk.aws_events_targets.SnsTopic(slackNotice.topic),
+        //         new cdk.aws_events_targets.SnsTopic(backlogNotice.topic),
+        //     ],
+        // });
+        new events.Rule(this, 'AwsSecurityHubImportedRule', {
+            description: 'aws.securityhub - imported rules created by aws-event-notifications.',
             eventPattern: {
                 source: ['aws.securityhub'],
-                detailType: ['Security Hub Findings - Custom Action'],
+                detailType: ['Security Hub Findings - Imported'],
+                detail: {
+                    findings: {
+                        Severity: {
+                            Label: ['HIGH', 'CRITICAL'],
+                        },
+                    },
+                },
             },
-            targets: [
-                new cdk.aws_events_targets.SnsTopic(slackNotice.topic),
-                new cdk.aws_events_targets.SnsTopic(backlogNotice.topic),
-            ],
+            targets: [new cdk.aws_events_targets.SnsTopic(backlogNotice.topic)],
         });
 
         // Outputs
