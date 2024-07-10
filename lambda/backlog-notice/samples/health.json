@@ -1,0 +1,65 @@
+{
+    "version": "0",
+    "id": "ccb6122f-cee2-00dd-8926-0226eb6d779d",
+    "detail-type": "AWS Health Event",
+    "source": "aws.health",
+    "account": "734656852360",
+    "time": "2024-06-25T03:46:45Z",
+    "region": "ap-northeast-1",
+    "resources": [
+        "omotenashi-app|staging",
+        "kankouyohou-api|staging",
+        "kankouyohou-api|production",
+        "kankouyohou-premium|production",
+        "omotenashi-app|production"
+    ],
+    "detail": {
+        "eventArn": "arn:aws:health:ap-northeast-1::event/ECS/AWS_ECS_TASK_PATCHING_RETIREMENT/AWS_ECS_TASK_PATCHING_RETIREMENT-NRT-DockerLinux-1-4-0-262-734656852360-MANAGED",
+        "service": "ECS",
+        "eventTypeCode": "AWS_ECS_TASK_PATCHING_RETIREMENT",
+        "eventTypeCategory": "scheduledChange",
+        "eventScopeCode": "ACCOUNT_SPECIFIC",
+        "communicationId": "d2ee82ad95af96f16220f74970847b9c6fcf27be-1",
+        "startTime": "Tue, 2 Jul 2024 03:00:00 GMT",
+        "endTime": "Tue, 9 Jul 2024 03:00:00 GMT",
+        "lastUpdatedTime": "Tue, 25 Jun 2024 03:46:04 GMT",
+        "statusCode": "upcoming",
+        "eventRegion": "ap-northeast-1",
+        "eventDescription": [
+            {
+                "language": "en_US",
+                "latestDescription": "You are receiving this notification because AWS Fargate has deployed a new platform version revision (1) and will retire any tasks running on previous platform version revision(s) starting at Tue, 2 Jul 2024 03:00 GMT as part of routine task maintenance (2). Please check the \\\"Affected Resources\\\" tab of your AWS Health Dashboard for a list of affected tasks. There is no action required on your part unless you want to replace these tasks before Fargate does. When using the default value of 100% for minimum healthy percent configuration of an ECS service (3), a replacement task will be launched on the most recent platform version revision before the affected task is retired. Any tasks launched after Tue, 25 Jun 2024 03:00 GMT were launched on the new platform version revision.\\n\\nAWS Fargate is a serverless, pay-as-you-go compute engine that lets you focus on building applications without managing servers. As described in the Fargate documentation (2) and (4), Fargate regularly deploys platform version revisions to make new features available and for routine maintenance. The Fargate update includes the most current Linux kernel and runtime components. Fargate will gradually replace the tasks in your service using your configured deployment settings, ensuring all tasks run on the new Fargate platform version revision.\\n\\nWe do not expect this update to impact your ECS services. However, if you want to control when your tasks are replaced, you can initiate an ECS service update before Tue, 2 Jul 2024 03:00 GMT by following the instructions below.\\n\\nIf you are using the rolling deployment type for your service, you can run the update-service command from the AWS command-line interface specifying force-new-deployment:\\n\\n$ aws ecs update-service --service service_name \\\n--cluster cluster_name --force-new-deployment\\n\\nIf you are using the Blue/Green deployment type, please refer to the documentation for create-deployment (5) and create a new deployment using the same task definition version.\\n\\nPlease contact AWS Support (6) if you have any questions or concerns.\\n\\n(1) https://docs.aws.amazon.com/AmazonECS/latest/userguide/AWS_Fargate-versions.html\\n(2) https://docs.aws.amazon.com/AmazonECS/latest/userguide/task-maintenance.html\\n(3) https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service_definition_parameters.html#sd-deploymentconfiguration\\n(4) https://aws.amazon.com/blogs/containers/improving-operational-visibility-with-aws-fargate-task-retirement-notifications/\\n(5) https://docs.aws.amazon.com/cli/latest/reference/deploy/create-deployment.html\\n(6) https://aws.amazon.com/support\\n\\n"
+            }
+        ],
+        "affectedEntities": [
+            {
+                "entityValue": "omotenashi-app|staging",
+                "status": "IMPAIRED",
+                "lastUpdatedTime": "Tue, 25 Jun 2024 03:46:04 GMT"
+            },
+            {
+                "entityValue": "kankouyohou-api|staging",
+                "status": "IMPAIRED",
+                "lastUpdatedTime": "Tue, 25 Jun 2024 03:46:04 GMT"
+            },
+            {
+                "entityValue": "kankouyohou-api|production",
+                "status": "IMPAIRED",
+                "lastUpdatedTime": "Tue, 25 Jun 2024 03:46:04 GMT"
+            },
+            {
+                "entityValue": "kankouyohou-premium|production",
+                "status": "IMPAIRED",
+                "lastUpdatedTime": "Tue, 25 Jun 2024 03:46:04 GMT"
+            },
+            {
+                "entityValue": "omotenashi-app|production",
+                "status": "IMPAIRED",
+                "lastUpdatedTime": "Tue, 25 Jun 2024 03:46:04 GMT"
+            }
+        ],
+        "affectedAccount": "734656852360",
+        "page": "1",
+        "totalPages": "1"
+    }
+}

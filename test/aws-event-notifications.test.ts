@@ -1,5 +1,5 @@
-import { Annotations, Match } from 'aws-cdk-lib/assertions';
 import { App, Aspects, Stack } from 'aws-cdk-lib';
+import { Annotations, Match } from 'aws-cdk-lib/assertions';
 import { AwsSolutionsChecks } from 'cdk-nag';
 import { AwsEventNotigicationsStack } from '../lib/aws-event-notifications-stack';
 
@@ -14,6 +14,10 @@ describe('cdk-nag AwsSolutions Pack', () => {
         stack = new AwsEventNotigicationsStack(app, 'test', {
             slackWorkspaceId: 'DUMMY',
             slackChannelId: 'DUMMY',
+            backlogSpaceName: 'DUMMY',
+            backlogProjectId: 'DUMMY',
+            backlogApiKey: 'DUMMY',
+            backlogIssueTypeId: 'DUMMY',
         });
 
         // WHEN

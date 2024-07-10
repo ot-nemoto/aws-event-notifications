@@ -5,10 +5,10 @@ import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
 
 export interface SlackNoticeProps {
-    // Slack Workspace ID
-    slackWorkspaceId: string;
-    // Slack Channel ID
-    slackChannelId: string;
+    // Workspace ID
+    workspaceId: string;
+    // Channel ID
+    channelId: string;
 }
 
 export class SlackNotice extends Construct {
@@ -61,8 +61,8 @@ export class SlackNotice extends Construct {
         // AWS Chatbot
         this.channelConfiguration = new chatbot.SlackChannelConfiguration(this, 'ChatbotSlackChannelConfiguration', {
             slackChannelConfigurationName: 'aws-event-slack-notice',
-            slackWorkspaceId: props.slackWorkspaceId,
-            slackChannelId: props.slackChannelId,
+            slackWorkspaceId: props.workspaceId,
+            slackChannelId: props.channelId,
             guardrailPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('ReadOnlyAccess')],
             notificationTopics: [this.topic],
             loggingLevel: chatbot.LoggingLevel.INFO,
