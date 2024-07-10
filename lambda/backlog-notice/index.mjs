@@ -2,6 +2,7 @@ import axios from 'axios';
 import querystring from 'querystring';
 import { getIssue } from './backlog.mjs';
 import { SecurityHub } from './issue-generator/securityhub.mjs';
+import { Health } from './issue-generator/health.mjs';
 
 export const handler = async (event) => {
     console.info(JSON.stringify(event, null, 2));
@@ -12,6 +13,10 @@ export const handler = async (event) => {
     let issue = null;
     if (message['source'] === 'aws.securityhub' && message['detail-type'] === 'Security Hub Findings - Imported') {
         const generator = new SecurityHub(message);
+        requestBody = await generator.requestBody();
+        issue = await getIssue(generator.eventId());
+    } else if (message['source'] === 'aws.health' && message['detail-type'] === 'AWS Health Event') {
+        const generator = new Health(message);
         requestBody = await generator.requestBody();
         issue = await getIssue(generator.eventId());
     } else {

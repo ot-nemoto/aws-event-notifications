@@ -37,25 +37,15 @@ export class AwsEventNotigicationsStack extends cdk.Stack {
 
         // Amazon EventBridge
         new events.Rule(this, 'AwsHealthRule', {
-            // ruleName: 'aws-health-notification',
             description: 'aws.health rules created by aws-event-notifications.',
             eventPattern: {
                 source: ['aws.health'],
             },
-            targets: [new cdk.aws_events_targets.SnsTopic(slackNotice.topic)],
+            targets: [
+                new cdk.aws_events_targets.SnsTopic(slackNotice.topic),
+                new cdk.aws_events_targets.SnsTopic(backlogNotice.topic),
+            ],
         });
-        // new events.Rule(this, 'AwsSecurityHubCustomActionRule', {
-        //     // ruleName: 'aws-securityhub-notification',
-        //     description: 'aws.securityhub - custom action rules created by aws-event-notifications.',
-        //     eventPattern: {
-        //         source: ['aws.securityhub'],
-        //         detailType: ['Security Hub Findings - Custom Action'],
-        //     },
-        //     targets: [
-        //         new cdk.aws_events_targets.SnsTopic(slackNotice.topic),
-        //         new cdk.aws_events_targets.SnsTopic(backlogNotice.topic),
-        //     ],
-        // });
         new events.Rule(this, 'AwsSecurityHubImportedRule', {
             description: 'aws.securityhub - imported rules created by aws-event-notifications.',
             eventPattern: {
@@ -63,8 +53,10 @@ export class AwsEventNotigicationsStack extends cdk.Stack {
                 detailType: ['Security Hub Findings - Imported'],
                 detail: {
                     findings: {
+                        RecordState: ['ACTIVE'],
                         Severity: {
-                            Label: ['HIGH', 'CRITICAL'],
+                            // Label: ['HIGH', 'CRITICAL'],
+                            Label: ['CRITICAL'],
                         },
                     },
                 },

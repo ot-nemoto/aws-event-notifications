@@ -56,7 +56,7 @@ export class SecurityHub {
     }
 
     description() {
-        return CustomAction.template
+        return SecurityHub.template
             .replaceAll('<description>', this.finding.description)
             .replaceAll('<sourceUrl>', this.finding.sourceUrl ? `(${this.finding.sourceUrl})` : '')
             .replaceAll('<severity>', this.finding.severity)
