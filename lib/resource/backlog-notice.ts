@@ -49,6 +49,19 @@ export class BacklogNotice extends Construct {
             timeout: cdk.Duration.seconds(30),
             reservedConcurrentExecutions: 1,
         });
+        NagSuppressions.addResourceSuppressions(
+            func,
+            [
+                {
+                    id: 'AwsSolutions-IAM4',
+                    reason: 'OK to use AWS managed AWSLambdaBasicExecutionRole',
+                    appliesTo: [
+                        'Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
+                    ],
+                },
+            ],
+            true
+        );
 
         this.topic.addSubscription(new LambdaSubscription(func));
     }
