@@ -44,7 +44,7 @@ export class BacklogNotice extends Construct {
                 API_KEY: props.apiKey,
                 ISSUE_TYPE_ID: props.issueTypeId,
             },
-            runtime: lambda.Runtime.NODEJS_20_X,
+            runtime: lambda.Runtime.NODEJS_24_X,
             handler: 'index.handler',
             timeout: cdk.Duration.seconds(30),
             reservedConcurrentExecutions: 1,
